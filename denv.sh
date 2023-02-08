@@ -6,12 +6,14 @@ build () {
     cmd="docker create"
     it="-it"
     p="-p 8080:8080"
-    config_volumes="
-        -v /home/nosiee/.config/nvim:/home/nosiee/.config/nvim \
-        -v /home/nosiee/.local/share/nvim:/home/nosiee/.local/share/nvim \
-        -v /home/nosiee/.local/state/nvim:/home/nosiee/.local/state/nvim \
-        -v /home/nosiee/.tmux/plugins/:/home/nosiee/.tmux/plugins \
-        -v /home/nosiee/.tmux.conf:/home/nosiee/.tmux.conf"
+    config_volumes="-v /home/nosiee/.config/nvim:/home/nosiee/.config/nvim
+                    -v /home/nosiee/.local/share/nvim:/home/nosiee/.local/share/nvim
+                    -v /home/nosiee/.local/state/nvim:/home/nosiee/.local/state/nvim
+                    -v /home/nosiee/.tmux/plugins:/home/nosiee/.tmux/plugins
+                    -v /home/nosiee/.tmux.conf:/home/nosiee/.tmux.conf
+                    -v /home/nosiee/.ssh:/home/nosiee/.ssh
+                    -v /home/nosiee/.gitconfig:/home/nosiee/.gitconfig"
+
     network="--network bridge"
     name="--name $2 $2"
 
