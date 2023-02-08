@@ -40,7 +40,18 @@ run () {
 }
 
 prune() {
-    docker rm $1
+    echo "Are you sure you want to delete all stopped containers?"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes) 
+                docker rm $(docker ps --filter status=exited -q)
+                break
+                ;;
+            No)
+                exit
+                ;;
+        esac
+    done
 }
 
 case $1 in
@@ -51,6 +62,6 @@ case $1 in
         run $2
         ;;
     prune)
-        prune $2
+        prune
         ;;
 esac
