@@ -3,36 +3,31 @@
 build () {
     docker build -f $1 . -t $2
 
-    if [ "$3" = "gui" ] 
-    then
-        docker create \
-            -e XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR} \
-            -e DISPLAY=${DISPLAY} \
-            -it \
-            -v /home/nosiee/.config/nvim:/home/nosiee/.config/nvim \
-            -v /home/nosiee/.local/share/nvim:/home/nosiee/.local/share/nvim \
-            -v /home/nosiee/.local/state/nvim:/home/nosiee/.local/state/nvim \
-            -v /home/nosiee/.tmux/plugins/:/home/nosiee/.tmux/plugins \
-            -v /home/nosiee/.tmux.conf:/home/nosiee/.tmux.conf \
-            -v /tmp/.X11-unix:/tmp/.X11-unix \
-            --network host \
-            --name $2 \
-            $2
+    cmd="docker create"
+    it="-it"
+    p="-p 8080:8080"
+    config_volumes="
+        -v /home/nosiee/.config/nvim:/home/nosiee/.config/nvim \
+        -v /home/nosiee/.local/share/nvim:/home/nosiee/.local/share/nvim \
+        -v /home/nosiee/.local/state/nvim:/home/nosiee/.local/state/nvim \
+        -v /home/nosiee/.tmux/plugins/:/home/nosiee/.tmux/plugins \
+        -v /home/nosiee/.tmux.conf:/home/nosiee/.tmux.conf"
+    network="--network bridge"
+    name="--name $2 $2"
 
-        echo "Add the following xauth token to your container: xauth add <token>"
-        xauth list
-    else
-        docker create \
-            -p 8080:8080 \
-            -it \
-            -v /home/nosiee/.config/nvim:/home/nosiee/.config/nvim \
-            -v /home/nosiee/.local/share/nvim:/home/nosiee/.local/share/nvim \
-            -v /home/nosiee/.local/state/nvim:/home/nosiee/.local/state/nvim \
-            -v /home/nosiee/.tmux/plugins/:/home/nosiee/.tmux/plugins \
-            -v /home/nosiee/.tmux.conf:/home/nosiee/.tmux.conf \
-            --name $2 \
-            $2
+    if [ $3 = "gui" ]
+    then
+        env="-e XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR} -e DISPLAY=${DISPLAY}"
+        xorg_volume="-v /tmp/.X11-unix:/tmp/.X11-unix"
+        network="--network host"
+        p=""
+
+        token=$(xauth list)
+        echo -e "\nAdd xauth token to your container: xauth add ${token}"
     fi
+
+    container_id=$($cmd $env $it $p $config_volumes $xorg_volume $network $name)
+    echo "Use 'denv run $2/${container_id}' to run the container"
 }
 
 run () {
