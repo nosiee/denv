@@ -15,7 +15,7 @@ build () {
     network="--network bridge"
     name="--name $2 $2"
 
-    if [ $3 = "gui" ]
+    if [ "$3" = "gui" ]
     then
         env="-e XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR} -e DISPLAY=${DISPLAY}"
         xorg_volume="-v /tmp/.X11-unix:/tmp/.X11-unix"
