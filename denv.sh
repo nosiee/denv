@@ -15,9 +15,9 @@ build () {
                     -v /home/nosiee/.gitconfig:/home/nosiee/.gitconfig"
 
     network="--network bridge"
-    name="--name $2 $2"
+    name="--name $3 $2"
 
-    if [ "$3" = "gui" ]
+    if [ "$4" = "gui" ]
     then
         env="-e XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR} -e DISPLAY=${DISPLAY}"
         xorg_volume="-v /tmp/.X11-unix:/tmp/.X11-unix"
@@ -53,7 +53,7 @@ prune() {
 
 case $1 in
     build)
-        build $2 $3 $4
+        build $2 $3 $4 $5
         ;;
     run)
         run $2
