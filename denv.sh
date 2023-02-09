@@ -29,7 +29,7 @@ build () {
     fi
 
     container_id=$($cmd $env $it $p $config_volumes $xorg_volume $network $name)
-    echo "Use 'denv run $2/${container_id}' to run the container"
+    echo "Use 'denv run $3/${container_id}' to run the container"
 }
 
 run () {
