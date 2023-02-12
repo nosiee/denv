@@ -1,10 +1,14 @@
 FROM archlinux
 
 RUN pacman -Syu neovim git tmux sudo gcc make clang pkg-config radare2 iaito --noconfirm
-RUN useradd -m -p $(perl -e 'print crypt($ARGV[0], "password")' nosiee) -s /usr/bin/bash nosiee
+
+RUN useradd -m -s /usr/bin/bash nosiee
+RUN echo "nosiee:nosiee" | chpasswd
 RUN echo "nosiee ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 USER nosiee 
 WORKDIR /home/nosiee
+
+RUN git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 CMD ["tmux"]
