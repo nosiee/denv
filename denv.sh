@@ -72,7 +72,7 @@ add() {
         echo -e "Add xauth token to your container: xauth add $(xauth list)"
     fi
 
-    container_id=$($cmd $env $it $p $config_volumes $xorg_volume $network $container_name)
+    container_id=$($cmd $env $it $port $config_volumes $xorg_volume $network $container_name)
     echo "Use 'denv run $name/${container_id}' to run the container"
 }
 
