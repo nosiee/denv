@@ -67,7 +67,7 @@ add() {
         env="-e XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR} -e DISPLAY=${DISPLAY}"
         xorg_volume="-v /tmp/.X11-unix:/tmp/.X11-unix"
         network="--network host"
-        p=""
+        port=""
 
         echo -e "Add xauth token to your container: xauth add $(xauth list)"
     fi
