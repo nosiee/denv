@@ -1,6 +1,6 @@
 FROM archlinux
 
-RUN pacman -Syu neovim go git tmux sudo gopls --noconfirm
+RUN pacman -Syu neovim go git tmux sudo gopls openssh --noconfirm
 
 RUN useradd -m -s /usr/bin/bash nosiee
 RUN echo "nosiee:nosiee" | chpasswd

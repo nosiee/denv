@@ -1,6 +1,6 @@
 FROM archlinux
 
-RUN pacman -Syu neovim git tmux sudo rustup rust-analyzer gcc --noconfirm
+RUN pacman -Syu neovim git tmux sudo rustup rust-analyzer gcc openssh --noconfirm
 
 RUN useradd -m -s /usr/bin/bash nosiee
 RUN echo "nosiee:nosiee" | chpasswd

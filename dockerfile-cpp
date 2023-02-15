@@ -1,6 +1,6 @@
 FROM archlinux
 
-RUN pacman -Syu neovim git tmux sudo clang gcc make pkg-config --noconfirm
+RUN pacman -Syu neovim git tmux sudo clang gcc make pkg-config openssh --noconfirm
 
 RUN useradd -m -s /usr/bin/bash nosiee
 RUN echo "nosiee:nosiee" | chpasswd
