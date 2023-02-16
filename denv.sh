@@ -44,7 +44,7 @@ build() {
 }
 
 add() {
-    cmd="docker create"
+    docker="docker create"
     it="-it"
 
     if [[ $port == "" ]]
@@ -59,7 +59,6 @@ add() {
                     -v /home/nosiee/.ssh:/home/nosiee/.ssh
                     -v /home/nosiee/.gitconfig:/home/nosiee/.gitconfig"
 
-    network="--network bridge"
     container_name="--name $name $image"
 
     if [ $gui == true ]
@@ -72,7 +71,7 @@ add() {
         echo -e "Add xauth token to your container: xauth add $(xauth list)"
     fi
 
-    container_id=$($cmd $env $it $port $config_volumes $xorg_volume $network $container_name)
+    container_id=$($docker $env $it $port $config_volumes $xorg_volume $network $container_name)
     echo "Use 'denv run $name/${container_id}' to run the container"
 }
 

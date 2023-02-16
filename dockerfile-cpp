@@ -1,6 +1,6 @@
 FROM archlinux
 
-RUN pacman -Syu neovim git tmux sudo clang gcc make pkg-config openssh --noconfirm
+RUN pacman -Syu neovim git tmux sudo clang gcc make pkg-config openssh cmake --noconfirm
 
 RUN useradd -m -s /usr/bin/bash nosiee
 RUN echo "nosiee:nosiee" | chpasswd
@@ -11,4 +11,4 @@ WORKDIR /home/nosiee
 
 RUN git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-CMD ["tmux"]
+CMD ["/bin/bash"]
